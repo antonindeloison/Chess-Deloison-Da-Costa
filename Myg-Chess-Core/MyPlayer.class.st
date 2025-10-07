@@ -50,8 +50,8 @@ MyPlayer >> gamingStrategy: aGamingStrategy [
 MyPlayer >> initialize [
 
 	super initialize.
-	
-	self gamingStrategy: RandomGamingStrategy new.
+
+	self gamingStrategy: OffensiveGamingStrategy new
 ]
 
 { #category : 'testing' }
