@@ -49,11 +49,23 @@ MyChessGame class >> new [
 	self error: 'Please use one of the other constructors'
 ]
 
+{ #category : 'accessing' }
+MyChessGame >> blackPlayer [
+
+	^ blackPlayer
+]
+
 { #category : 'playing' }
 MyChessGame >> checkForMate [
 
 	whitePlayer king isCheckMated ifTrue: [ self halt: 'Black wins!' ].
 	blackPlayer king isCheckMated ifTrue: [ self halt: 'White wins!' ].
+]
+
+{ #category : 'accessing' }
+MyChessGame >> currentPlayer [
+
+	^ currentPlayer
 ]
 
 { #category : 'initialization' }
@@ -173,4 +185,10 @@ MyChessGame >> recordMovementOf: aPiece to: aSquare [
 	].
 	
 	movesLabel text: movesText
+]
+
+{ #category : 'accessing' }
+MyChessGame >> whitePlayer [
+
+	^ whitePlayer
 ]
