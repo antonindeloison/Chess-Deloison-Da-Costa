@@ -16,20 +16,12 @@ OffensiveGamingStrategy >> executeRandomMoveFrom: aCollection for: aPlayer [
 ]
 
 { #category : 'as yet unclassified' }
-OffensiveGamingStrategy >> kingIsInCheck: aPlayer [
-
-^ aPlayer king isInCheck
-		          ifTrue: [ OrderedCollection with: aPlayer king ]
-		          ifFalse: [ aPlayer pieces copy asOrderedCollection ].
-]
-
-{ #category : 'as yet unclassified' }
 OffensiveGamingStrategy >> legalMoves: aPlayer [
 	" attackingMoves is a collecion who regroup all the moves can capture an ennemy
 	  standardMoves is a collection who regroup all the moves who can't capture an ennemy, they are a normal in the grid. "
 
 	| pieces attackingMoves standardMoves |
-	pieces := self kingIsInCheck: aPlayer.
+	pieces := self listOfPiecesOrKing: aPlayer.
 
 	attackingMoves := OrderedCollection new.
 	standardMoves := OrderedCollection new.
@@ -46,6 +38,14 @@ OffensiveGamingStrategy >> legalMoves: aPlayer [
 
 
 	^ Array with: attackingMoves with: standardMoves
+]
+
+{ #category : 'as yet unclassified' }
+OffensiveGamingStrategy >> listOfPiecesOrKing: aPlayer [
+
+^ aPlayer king isInCheck
+		          ifTrue: [ OrderedCollection with: aPlayer king ]
+		          ifFalse: [ aPlayer pieces copy asOrderedCollection ].
 ]
 
 { #category : 'playing' }

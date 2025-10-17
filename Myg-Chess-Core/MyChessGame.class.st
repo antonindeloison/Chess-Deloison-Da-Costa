@@ -55,6 +55,17 @@ MyChessGame >> blackPlayer [
 	^ blackPlayer
 ]
 
+{ #category : 'initialization' }
+MyChessGame >> board [
+	^ board.
+]
+
+{ #category : 'accessing' }
+MyChessGame >> board: aBoard [
+
+	board := aBoard.
+]
+
 { #category : 'playing' }
 MyChessGame >> checkForMate [
 
@@ -189,6 +200,5 @@ MyChessGame >> recordMovementOf: aPiece to: aSquare [
 
 { #category : 'accessing' }
 MyChessGame >> whitePlayer [
-
-	^ whitePlayer
+	^ whitePlayer.
 ]
