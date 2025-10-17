@@ -229,14 +229,15 @@ MyChessSquare >> renderKing: aPiece [
 { #category : 'rendering' }
 MyChessSquare >> renderKnight: aPiece [
 
-	^ aPiece isWhite
-		  ifFalse: [ color isBlack
-				  ifFalse: [ 'M' ]
-				  ifTrue: [ 'm' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'N' ]
-				  ifTrue: [ 'n' ] ]
+	^ aPiece isWhite "Piece blanche"
+		  ifFalse: [ "Si la piece n'est pas blanche"
+				  color isBlack "Square noir"
+					  ifFalse: [ 'M' ]
+					  ifTrue: [ 'm' ] ]
+		  ifTrue: [ "Si la piece est blanche"
+				  color isBlack "Square noir"
+					  ifFalse: [ 'N' ]
+					  ifTrue: [ 'n' ] ]
 ]
 
 { #category : 'rendering' }
