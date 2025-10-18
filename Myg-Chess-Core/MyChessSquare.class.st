@@ -170,6 +170,11 @@ MyChessSquare >> initialize [
 	self addEventHandlerOn: BlClickEvent do: [ :e | self click ]
 ]
 
+{ #category : 'testing' }
+MyChessSquare >> isWhite [
+	^ color isBlack not.
+]
+
 { #category : 'accessing' }
 MyChessSquare >> left [
 
@@ -200,86 +205,34 @@ MyChessSquare >> printOn: aStream [
 
 { #category : 'rendering' }
 MyChessSquare >> renderBishop: aPiece [
-
-	^ aPiece isWhite
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'B' ]
-				  ifTrue: [ 'b' ] ]
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'V' ]
-				  ifTrue: [ 'v' ] ]
+	^ MyBishopRender new render: aPiece on: self
 ]
 
 { #category : 'rendering' }
 MyChessSquare >> renderKing: aPiece [
-
-	^ aPiece isWhite
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'L' ]
-				  ifTrue: [ 'l' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'K' ]
-				  ifTrue: [ 'k' ] ]
+	^ MyKingRender new render: aPiece on: self
 ]
 
 { #category : 'rendering' }
 MyChessSquare >> renderKnight: aPiece [
 
-	^ aPiece isWhite "Piece blanche"
-		  ifFalse: [ "Si la piece n'est pas blanche"
-				  color isBlack "Square noir"
-					  ifFalse: [ 'M' ]
-					  ifTrue: [ 'm' ] ]
-		  ifTrue: [ "Si la piece est blanche"
-				  color isBlack "Square noir"
-					  ifFalse: [ 'N' ]
-					  ifTrue: [ 'n' ] ]
+	^ MyKnightRender new render: aPiece on: self
 ]
 
 { #category : 'rendering' }
 MyChessSquare >> renderPawn: aPiece [
-
-	^ aPiece isWhite
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'O' ]
-				  ifTrue: [ 'o' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'P' ]
-				  ifTrue: [ 'p' ] ]
+	^ MyPawnRender new render: aPiece on: self
 ]
 
 { #category : 'rendering' }
 MyChessSquare >> renderQueen: aPiece [
-
-	^ aPiece isWhite
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'W' ]
-				  ifTrue: [ 'w' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'Q' ]
-				  ifTrue: [ 'q' ] ]
+^ MyQueenRender new render: aPiece on: self
 ]
 
 { #category : 'rendering' }
 MyChessSquare >> renderRook: aPiece [
 
-	^ aPiece isWhite
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'T' ]
-				  ifTrue: [ 't' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'R' ]
-				  ifTrue: [ 'r' ] ]
+	^ MyRookRender new render: aPiece on: self
 ]
 
 { #category : 'accessing' }
