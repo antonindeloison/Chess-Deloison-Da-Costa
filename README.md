@@ -1,6 +1,9 @@
 # Chess-Deloison-Da-Costa
 
 ## Summary
+- [Introcution](#introduction)
+	- [Difficulties](#difficulties)
+	- [Tests](#tests)
 - [Installation instructions](#installation-instructions)
 - [Instructions for use](#instructions-for-use)
 - [Design decision
@@ -8,13 +11,75 @@
   - [Kata : Refactoring du rendu des pièces](#kata--refactor-piece-rendering)
 - [Authors](#authors)
 
+## Introduction
+
+We have selected two katas: Implement more bot gaming strategies and Refactor piece rendering.
+
+### Difficulties
+
+### Kata : Refactor piece rendering
+
+**Identifying the right level of abstraction**
+
+A major challenge was determining where to place the rendering logic: in the rooms, in the boxes, or in a dedicated class.
+We had to strike a balance between decoupling and simplicity, so as not to weigh down the architecture while keeping the system flexible and easy to upgrade.
+
+The decision was made to create a dedicated class hierarchy.
+
+**Correspondence dictionary maintenance**
+
+The dictionary mapping piece type, piece colour and square colour is central, but fragile: a typo or forgotten combination can cause incorrect rendering.
+Each new piece also requires manual updating of the table, which demands rigour and vigilance.
+
+### Tests
+
+We tested our code mainly using unit tests.
+These tests were written at the beginning of the refactoring process, even before the table dispatch was implemented.
+They checked that each rendering method returned the correct character according to the type and colour of the piece, as well as the colour of the square.
+
+When we modified certain values or keys in the dictionary, the tests failed, confirming that they correctly detected errors and ensured the validity of the expected behaviour.
+
+In the section on game strategies, we introduced a Strategy pattern to make player behaviour extensible.
+Instead of a player having a single strategy, they now call on an external strategy that runs independently.
+We also implemented unit tests to verify that each strategy was called correctly and produced the expected moves, thus ensuring that the new design worked properly.
+
 ## Installation instructions
+
+
+This code has been tested with Pharo 13. You can install it using the following baseline :
+
+```smalltalk
+Metacello new
+	repository: 'github://antonindeloison/Chess-Deloison-Da-Costa:main';
+	baseline: 'MygChess';
+	onConflictUseLoaded;
+	load.
+```
 
 ## Instructions for use
 
-## Design decision
+You can open the chess game using the following expression:
 
-## Explain the basics
+```smalltalk
+board := MyChessGame freshGame.
+board size: 800@600.
+space := BlSpace new.
+space root addChild: board.
+space pulse.
+space resizable: true.
+space show.
+```
+
+**Where is code and tests ?**
+
+In the System Browser, set a filter for ‘chess’. You should see:
+
+![alt text](img/image.png)
+
+- The code is in: Myg-Chess-Core
+- The tests are in: My-Chess-Tests
+
+## Design decision
 
 ### Kata : Refactor piece rendering
 
