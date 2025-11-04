@@ -23,5 +23,5 @@ RandomGamingStrategy >> play: aPlayer [
 					aPlayer game move: piece to: legalMoves atRandom.
 					^ aPlayer ] ].
 
-	1 halt: 'NO MOVES AVAILABLE!'
+	self noMovesAvailable
 ]
