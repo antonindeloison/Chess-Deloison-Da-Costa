@@ -17,6 +17,20 @@ We have selected two katas: Implement more bot gaming strategies and Refactor pi
 
 ### Difficulties
 
+### Kata : Implement more bot gaming strategies
+
+**Understanding the existing structure**
+
+The implementation of the design pattern itself was relatively quick and straightforward once the overall approach was defined. However, the main difficulty was identifying where the existing “random move” strategy was implemented and triggered. It was necessary to locate the play method inside the Player class, which served as the entry point for automatic gameplay. Once this method was found, the strategy could be properly associated with each player instance, allowing the integration of different AI behaviors without disrupting the existing logic.
+
+**Avoiding code duplication**
+
+When separating the strategy logic, a major challenge was redistributing responsibilities to avoid repeating similar code between strategies while keeping the structure clear and easy to maintain. Since some strategies could share similar behaviors, it was necessary to design a coherent class hierarchy. This required proper dependency separation, ensuring that advanced strategies could build upon simpler ones without redundancy or tight coupling.
+
+**Managing algorithmic complexity**
+
+Adding new decision algorithms increased the code’'s complexity and required multiple refactorings to keep it clear. The cyclomatic complexity also grew quickly, making the code harder to follow and maintain. After isolating the original random play method into its own strategy, new ones had to be created. The simplest was offensive (“if you can capture, then capture”), followed by more advanced logic like capturing while staying safe.
+
 ### Kata : Refactor piece rendering
 
 **Identifying the right level of abstraction**
@@ -41,7 +55,7 @@ When we modified certain values or keys in the dictionary, the tests failed, con
 
 In the section on game strategies, we introduced a Strategy pattern to make player behaviour extensible.
 Instead of a player having a single strategy, they now call on an external strategy that runs independently.
-We also implemented unit tests to verify that each strategy was called correctly and produced the expected moves, thus ensuring that the new design worked properly.
+We also implemented unit tests to verify that each strategy was called correctly and produced the expected moves, ensuring the new design functioned properly. To reduce code repetition, we created mocks for game scenarios using a builder design pattern.
 
 ## Installation instructions
 
@@ -72,7 +86,7 @@ space show.
 
 **Where is code and tests ?**
 
-In the System Browser, set a filter for ‘chess’. You should see:
+In the System Browser, set a filter for "chess". You should see:
 
 ![alt text](img/image.png)
 
@@ -80,6 +94,140 @@ In the System Browser, set a filter for ‘chess’. You should see:
 - The tests are in: My-Chess-Tests
 
 ## Design decision
+
+### Kata : Implement more bot gaming strategies
+
+Initial solution:
+
+```Smalltalk
+MyPlayer >> play
+
+	| pieces |
+	pieces := self king isInCheck
+		          ifTrue: [ OrderedCollection with: self king ]
+		          ifFalse: [ self pieces copy asOrderedCollection ].
+
+
+	[ pieces notEmpty ] whileTrue: [
+		| piece legalMoves |
+		piece := pieces atRandom.
+		pieces remove: piece.
+		legalMoves := piece legalTargetSquares.
+		legalMoves ifNotEmpty: [
+			game move: piece to: legalMoves atRandom.
+			^ self ] ].
+
+	self halt: 'NO MOVES AVAILABLE!'
+```
+
+**Goal**: Implement multiple bot gaming strategies with clean architecture.
+
+Presentation of design choices to solve this problem
+
+We started by tackling the problem at its architectural level without changing the behaviour. The original implementation had gaming logic hardcoded directly in the `play:` method of **MyPlayer**, violating the Single Responsibility Principle and making it impossible to extend with new strategies.
+
+1. Strategy Pattern Implementation
+
+The first step was to extract the gaming logic into a separate hierarchy using the **Strategy Design Pattern** :
+
+```Smalltalk
+MyPlayer >> initialize
+    super initialize.
+    self gamingStrategy: RandomGamingStrategy new
+```
+
+```Smalltalk
+MyPlayer >> play
+    gamingStrategy play: self
+```
+
+This delegation allows the player to focus only on being a player, while the strategy handles the decision-making process. The strategy can be changed at runtime, providing flexibility (strategy selection during the game for example).
+
+2. Template Method Pattern
+We implemented a **Template Method** in the abstract strategy class to define the common algorithm structure:
+
+```Smalltalk
+AbstractGamingStrategy >> kingIsInCheck: aPlayer
+    ^ aPlayer king isInCheck
+        ifTrue: [ OrderedCollection with: aPlayer king ]
+        ifFalse: [ aPlayer pieces copy asOrderedCollection ]
+````
+```Smalltalk
+AbstractGamingStrategy >> executeRandomMoveFrom: aCollection for: aPlayer
+    | move |
+    move := aCollection atRandom.
+    aPlayer game move: move first to: (move at: 2).
+    ^ aPlayer
+```
+```Smalltalk
+AbstractGamingStrategy >> noMovesAvailable
+
+	self halt: 'NO MOVES AVAILABLE!'
+```
+
+This templates are used with self sends that provide late binding through polymorphism.
+
+```Smalltalk
+DefensiveGamingStrategy >> getAllOtherMoves: aPlayer
+    
+    | allMoves pieces |
+    allMoves := OrderedCollection new.
+    pieces := self kingIsInCheck: aPlayer.
+    
+    pieces do: [ :piece |
+        piece legalTargetSquares do: [ :targetSquare |
+            allMoves add: (Array with: piece with: targetSquare) ] ].
+    
+    ^ allMoves
+```
+
+```Smalltalk
+DefensiveGamingStrategy >> play: aPlayer
+	"Defensive strategy that saves a piece in danger else do a random legal move"
+
+	| escapeMoves allMoves |
+	escapeMoves := self getEscapeMoves: aPlayer.
+	escapeMoves notEmpty ifTrue: [
+		^ self executeRandomMoveFrom: escapeMoves for: aPlayer ].
+
+	allMoves := self getAllOtherMoves: aPlayer.
+	allMoves notEmpty ifTrue: [
+		^ self executeRandomMoveFrom: allMoves for: aPlayer ].
+
+	self noMovesAvailable
+```
+
+3. Inheritance Hierarchy
+
+We designed a clear inheritance hierarchy in which each strategy shares and implements common methods.
+
+**Original hierarchy ideas**
+
+- **AbstractGamingStrategy** (abstract base class)
+- **RandomGamingStrategy** (original random move selection)
+- **OffensiveGamingStrategy** (captures when possible)
+- **DefensiveGamingStrategy** (prioritizes piece safety)
+- **MixedGamingStrategy** (inherits from **DefensiveGamingStrategy** with safe captures)
+
+Each strategy responds polymorphically to the same message `play:` but implementing different behaviors:
+
+```smalltalk
+OffensiveGamingStrategy >> play: aPlayer
+	"Offensive strategy: capture an enemy piece if possible; otherwise perform a random legal move."
+
+DefensiveGamingStrategy >> play: aPlayer
+	"Defensive strategy: save a piece in danger; otherwise perform a random legal move."
+
+MixedGamingStrategy >> play: aPlayer
+	"Mixed strategy:
+	 1. Save a piece in danger.
+	 2. Make a safe capture.
+	 3. Make a safe move.
+	 4. If none apply, perform a random legal move."
+```
+
+In conclusion, with the **Strategy Pattern**, **Template Method**, and a clear **Inheritance Hierarchy**, the design is cleaner, extensible, and easy to maintain.Each strategy owns its behavior and can be swapped at runtime, ensuring flexibility, and clear separation of concerns.
+
 
 ### Kata : Refactor piece rendering
 
