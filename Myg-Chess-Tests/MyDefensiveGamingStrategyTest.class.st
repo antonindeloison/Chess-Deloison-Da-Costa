@@ -1,12 +1,12 @@
 Class {
-	#name : 'MyDefensiveGamingStrategy',
-	#superclass : 'MyAbstractStrategy',
+	#name : 'MyDefensiveGamingStrategyTest',
+	#superclass : 'MyAbstractStrategyTest',
 	#category : 'Myg-Chess-Tests',
 	#package : 'Myg-Chess-Tests'
 }
 
 { #category : 'tests' }
-MyDefensiveGamingStrategy >> testDefensiveStrategyPrioritizesSafety [
+MyDefensiveGamingStrategyTest >> testDefensiveStrategyPrioritizesSafety [
 
 	| strategy player mock targetedSquares |
 	mock := ChessBoardMock new
@@ -24,7 +24,7 @@ MyDefensiveGamingStrategy >> testDefensiveStrategyPrioritizesSafety [
 ]
 
 { #category : 'tests' }
-MyDefensiveGamingStrategy >> testGetAllOtherMovesReturnsAllLegalMoves [
+MyDefensiveGamingStrategyTest >> testGetAllOtherMovesReturnsAllLegalMoves [
 
 	| strategy player mock allMoves |
 	mock := ChessBoardMock new
@@ -41,7 +41,7 @@ MyDefensiveGamingStrategy >> testGetAllOtherMovesReturnsAllLegalMoves [
 ]
 
 { #category : 'tests' }
-MyDefensiveGamingStrategy >> testGetEscapeMovesAvoidsDangerousSquares [
+MyDefensiveGamingStrategyTest >> testGetEscapeMovesAvoidsDangerousSquares [
 
 	| strategy player mock escapeMoves opponentTargets |
 	mock := ChessBoardMock new basicSetup.
@@ -57,7 +57,7 @@ MyDefensiveGamingStrategy >> testGetEscapeMovesAvoidsDangerousSquares [
 ]
 
 { #category : 'tests' }
-MyDefensiveGamingStrategy >> testGetEscapeMovesFindsValidEscapes [
+MyDefensiveGamingStrategyTest >> testGetEscapeMovesFindsValidEscapes [
 
 	| strategy player mock escapeMoves |
 	mock := ChessBoardMock new basicSetup.
@@ -74,7 +74,7 @@ MyDefensiveGamingStrategy >> testGetEscapeMovesFindsValidEscapes [
 ]
 
 { #category : 'tests' }
-MyDefensiveGamingStrategy >> testGetEscapeMovesReturnsEmptyWhenNoPiecesInDanger [
+MyDefensiveGamingStrategyTest >> testGetEscapeMovesReturnsEmptyWhenNoPiecesInDanger [
 
 	| strategy player mock escapeMoves |
 	mock := ChessBoardMock new basicSetup.
@@ -88,7 +88,7 @@ MyDefensiveGamingStrategy >> testGetEscapeMovesReturnsEmptyWhenNoPiecesInDanger 
 ]
 
 { #category : 'tests' }
-MyDefensiveGamingStrategy >> testGetOpponentTargetedSquares [
+MyDefensiveGamingStrategyTest >> testGetOpponentTargetedSquares [
 
 	| strategy player mock targetedSquares |
 	mock := ChessBoardMock new basicSetup.
@@ -106,7 +106,7 @@ MyDefensiveGamingStrategy >> testGetOpponentTargetedSquares [
 ]
 
 { #category : 'tests' }
-MyDefensiveGamingStrategy >> testGetPiecesInDangerIdentifiesThreatenedPieces [
+MyDefensiveGamingStrategyTest >> testGetPiecesInDangerIdentifiesThreatenedPieces [
 
 	| strategy player mock piecesInDanger |
 	mock := ChessBoardMock new threatScenario.
@@ -122,7 +122,7 @@ MyDefensiveGamingStrategy >> testGetPiecesInDangerIdentifiesThreatenedPieces [
 ]
 
 { #category : 'tests' }
-MyDefensiveGamingStrategy >> testGetPiecesInDangerReturnsEmptyWhenAllSafe [
+MyDefensiveGamingStrategyTest >> testGetPiecesInDangerReturnsEmptyWhenAllSafe [
 
 	| strategy player mock piecesInDanger |
 	mock := ChessBoardMock new basicSetup.
@@ -136,7 +136,7 @@ MyDefensiveGamingStrategy >> testGetPiecesInDangerReturnsEmptyWhenAllSafe [
 ]
 
 { #category : 'tests' }
-MyDefensiveGamingStrategy >> testPlayCallsNoMovesAvailableWhenStuck [
+MyDefensiveGamingStrategyTest >> testPlayCallsNoMovesAvailableWhenStuck [
 
 	| strategy player mock |
 	mock := ChessBoardMock new stalemateScenario.
@@ -148,7 +148,7 @@ MyDefensiveGamingStrategy >> testPlayCallsNoMovesAvailableWhenStuck [
 ]
 
 { #category : 'tests' }
-MyDefensiveGamingStrategy >> testPlayExecutesEscapeMoveWhenPieceInDanger [
+MyDefensiveGamingStrategyTest >> testPlayExecutesEscapeMoveWhenPieceInDanger [
 
 	| strategy player mock |
 	mock := ChessBoardMock new threatScenario.
@@ -161,7 +161,7 @@ MyDefensiveGamingStrategy >> testPlayExecutesEscapeMoveWhenPieceInDanger [
 ]
 
 { #category : 'tests' }
-MyDefensiveGamingStrategy >> testPlayExecutesRandomMoveWhenNoPiecesInDanger [
+MyDefensiveGamingStrategyTest >> testPlayExecutesRandomMoveWhenNoPiecesInDanger [
 
 	| strategy player mock originalPositions |
 	mock := ChessBoardMock new basicSetup.

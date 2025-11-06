@@ -1,12 +1,12 @@
 Class {
-	#name : 'MyOffensiveGamingStrategy',
-	#superclass : 'MyAbstractStrategy',
+	#name : 'MyOffensiveGamingStrategyTest',
+	#superclass : 'MyAbstractStrategyTest',
 	#category : 'Myg-Chess-Tests',
 	#package : 'Myg-Chess-Tests'
 }
 
 { #category : 'tests' }
-MyOffensiveGamingStrategy >> testLegalMoves [
+MyOffensiveGamingStrategyTest >> testLegalMoves [
 
 	| player attackingMoves standardMoves moves mock |
 	mock := ChessBoardMock new pawnCaptureScenario.
@@ -22,7 +22,7 @@ MyOffensiveGamingStrategy >> testLegalMoves [
 ]
 
 { #category : 'tests' }
-MyOffensiveGamingStrategy >> testLegalMovesFiltersCorrectly [
+MyOffensiveGamingStrategyTest >> testLegalMovesFiltersCorrectly [
 
 	| player moves attackingMoves standardMoves strategy mock |
 	mock := ChessBoardMock new basicSetup
@@ -52,7 +52,7 @@ MyOffensiveGamingStrategy >> testLegalMovesFiltersCorrectly [
 ]
 
 { #category : 'tests' }
-MyOffensiveGamingStrategy >> testLegalMovesWithMultipleCaptures [
+MyOffensiveGamingStrategyTest >> testLegalMovesWithMultipleCaptures [
 
 	| player moves attackingMoves mock captureTargets |
 	mock := ChessBoardMock new multiCaptureScenario.
@@ -71,7 +71,7 @@ MyOffensiveGamingStrategy >> testLegalMovesWithMultipleCaptures [
 ]
 
 { #category : 'tests' }
-MyOffensiveGamingStrategy >> testLegalMovesWithNoCaptures [
+MyOffensiveGamingStrategyTest >> testLegalMovesWithNoCaptures [
 
 	| player moves attackingMoves standardMoves mock |
 	mock := ChessBoardMock new basicSetup.
@@ -87,7 +87,7 @@ MyOffensiveGamingStrategy >> testLegalMovesWithNoCaptures [
 ]
 
 { #category : 'tests' }
-MyOffensiveGamingStrategy >> testOffensiveStrategyPrioritizesAggression [
+MyOffensiveGamingStrategyTest >> testOffensiveStrategyPrioritizesAggression [
 
 	| strategy player mock |
 	mock := ChessBoardMock new basicSetup
@@ -104,7 +104,7 @@ MyOffensiveGamingStrategy >> testOffensiveStrategyPrioritizesAggression [
 ]
 
 { #category : 'tests' }
-MyOffensiveGamingStrategy >> testPlayCallsNoMovesAvailableWhenStuck [
+MyOffensiveGamingStrategyTest >> testPlayCallsNoMovesAvailableWhenStuck [
 
 	| player strategy mock |
 	mock := ChessBoardMock new stalemateScenario.
@@ -116,7 +116,7 @@ MyOffensiveGamingStrategy >> testPlayCallsNoMovesAvailableWhenStuck [
 ]
 
 { #category : 'tests' }
-MyOffensiveGamingStrategy >> testPlayMakesStandardMoveWhenNoCapturesAvailable [
+MyOffensiveGamingStrategyTest >> testPlayMakesStandardMoveWhenNoCapturesAvailable [
 
 	| player strategy mock originalPositions |
 	mock := ChessBoardMock new basicSetup.
@@ -133,7 +133,7 @@ MyOffensiveGamingStrategy >> testPlayMakesStandardMoveWhenNoCapturesAvailable [
 ]
 
 { #category : 'tests' }
-MyOffensiveGamingStrategy >> testPlayPrioritizesAttackingMoves [
+MyOffensiveGamingStrategyTest >> testPlayPrioritizesAttackingMoves [
 
 	| player strategy mock |
 	mock := ChessBoardMock new basicSetup

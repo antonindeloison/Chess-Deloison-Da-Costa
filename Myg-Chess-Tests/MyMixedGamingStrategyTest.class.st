@@ -1,12 +1,12 @@
 Class {
-	#name : 'MyMixedGamingStrategy',
-	#superclass : 'MyDefensiveGamingStrategy',
+	#name : 'MyMixedGamingStrategyTest',
+	#superclass : 'MyDefensiveGamingStrategyTest',
 	#category : 'Myg-Chess-Tests',
 	#package : 'Myg-Chess-Tests'
 }
 
 { #category : 'tests' }
-MyMixedGamingStrategy >> testGetCaptureMovesIdentifiesCaptures [
+MyMixedGamingStrategyTest >> testGetCaptureMovesIdentifiesCaptures [
 
 	| strategy player mock captureMoves |
 	mock := ChessBoardMock new safeCaptureScenario.
@@ -25,7 +25,7 @@ MyMixedGamingStrategy >> testGetCaptureMovesIdentifiesCaptures [
 ]
 
 { #category : 'tests' }
-MyMixedGamingStrategy >> testGetCaptureMovesReturnsEmptyWhenNoCaptures [
+MyMixedGamingStrategyTest >> testGetCaptureMovesReturnsEmptyWhenNoCaptures [
 
 	| strategy player mock safeCaptureMoves |
 	mock := ChessBoardMock new basicSetup
@@ -41,7 +41,7 @@ MyMixedGamingStrategy >> testGetCaptureMovesReturnsEmptyWhenNoCaptures [
 ]
 
 { #category : 'tests' }
-MyMixedGamingStrategy >> testGetSafeMovesReturnsMovesToUntargetedSquares [
+MyMixedGamingStrategyTest >> testGetSafeMovesReturnsMovesToUntargetedSquares [
 	"Test getSafeMoves: returns moves to squares not targeted by opponent"
 	
 	| strategy player board game safeMoves opponentTargets |
@@ -64,7 +64,7 @@ MyMixedGamingStrategy >> testGetSafeMovesReturnsMovesToUntargetedSquares [
 ]
 
 { #category : 'tests' }
-MyMixedGamingStrategy >> testMixedStrategyFollowsCorrectPriority [
+MyMixedGamingStrategyTest >> testMixedStrategyFollowsCorrectPriority [
 
 	| strategy player mock |
 	mock := ChessBoardMock new basicSetup
@@ -82,7 +82,7 @@ MyMixedGamingStrategy >> testMixedStrategyFollowsCorrectPriority [
 ]
 
 { #category : 'tests' }
-MyMixedGamingStrategy >> testPlayCallsNoMovesAvailableWhenStuck [
+MyMixedGamingStrategyTest >> testPlayCallsNoMovesAvailableWhenStuck [
 	
 	| strategy player mock |
     mock := ChessBoardMock new stalemateScenario.
@@ -96,7 +96,7 @@ MyMixedGamingStrategy >> testPlayCallsNoMovesAvailableWhenStuck [
 ]
 
 { #category : 'tests' }
-MyMixedGamingStrategy >> testPlayMakesSafeCaptureWhenNoPiecesInDanger [
+MyMixedGamingStrategyTest >> testPlayMakesSafeCaptureWhenNoPiecesInDanger [
 
 	| strategy player mock |
 	mock := ChessBoardMock new captureScenario.
@@ -110,7 +110,7 @@ MyMixedGamingStrategy >> testPlayMakesSafeCaptureWhenNoPiecesInDanger [
 ]
 
 { #category : 'tests' }
-MyMixedGamingStrategy >> testPlayMakesSafeMoveWhenNoCapturesAvailable [
+MyMixedGamingStrategyTest >> testPlayMakesSafeMoveWhenNoCapturesAvailable [
 
 	| strategy player mock originalPositions |
 	mock := ChessBoardMock new basicSetup.
@@ -127,7 +127,7 @@ MyMixedGamingStrategy >> testPlayMakesSafeMoveWhenNoCapturesAvailable [
 ]
 
 { #category : 'tests' }
-MyMixedGamingStrategy >> testPlayPrioritizesEscapeMovesFirst [
+MyMixedGamingStrategyTest >> testPlayPrioritizesEscapeMovesFirst [
 
 	| strategy player mock |
 	mock := ChessBoardMock new threatScenario.
@@ -141,7 +141,7 @@ MyMixedGamingStrategy >> testPlayPrioritizesEscapeMovesFirst [
 ]
 
 { #category : 'tests' }
-MyMixedGamingStrategy >> testPlaySelectsSafeCapturesOverUnsafeOnes [
+MyMixedGamingStrategyTest >> testPlaySelectsSafeCapturesOverUnsafeOnes [
 	
 	| strategy player mock |
     mock := ChessBoardMock new cornerSafeCaptureScenario.

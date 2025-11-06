@@ -1,12 +1,12 @@
 Class {
-	#name : 'MyAbstractStrategy',
+	#name : 'MyAbstractStrategyTest',
 	#superclass : 'TestCase',
 	#category : 'Myg-Chess-Tests',
 	#package : 'Myg-Chess-Tests'
 }
 
 { #category : 'tests' }
-MyAbstractStrategy >> testExecuteRandomMoveFromExecutesAMove [
+MyAbstractStrategyTest >> testExecuteRandomMoveFromExecutesAMove [
 
 	| strategy player mock moves targetSquare result |
 	mock := ChessBoardMock new basicSetup.
@@ -27,7 +27,7 @@ MyAbstractStrategy >> testExecuteRandomMoveFromExecutesAMove [
 ]
 
 { #category : 'tests' }
-MyAbstractStrategy >> testExecuteRandomMoveFromWithEmptyCollection [
+MyAbstractStrategyTest >> testExecuteRandomMoveFromWithEmptyCollection [
 
 	| strategy player mock moves |
 	mock := ChessBoardMock new basicSetup.
@@ -42,7 +42,7 @@ MyAbstractStrategy >> testExecuteRandomMoveFromWithEmptyCollection [
 ]
 
 { #category : 'tests' }
-MyAbstractStrategy >> testKingIsInCheckWithKingInCheck [
+MyAbstractStrategyTest >> testKingIsInCheckWithKingInCheck [
 
 	| strategy player mock result |
 	mock := ChessBoardMock new checkScenario.
@@ -57,7 +57,7 @@ MyAbstractStrategy >> testKingIsInCheckWithKingInCheck [
 ]
 
 { #category : 'tests' }
-MyAbstractStrategy >> testKingIsInCheckWithoutKingInCheck [
+MyAbstractStrategyTest >> testKingIsInCheckWithoutKingInCheck [
 
 	| strategy player mock result |
 	mock := ChessBoardMock new multiPieceSetup.
@@ -73,7 +73,7 @@ MyAbstractStrategy >> testKingIsInCheckWithoutKingInCheck [
 ]
 
 { #category : 'tests' }
-MyAbstractStrategy >> testNoMovesAvailable [
+MyAbstractStrategyTest >> testNoMovesAvailable [
 
 	| strategy |
 	strategy := AbstractGamingStrategy new.
