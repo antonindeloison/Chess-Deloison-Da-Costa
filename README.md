@@ -264,7 +264,7 @@ MyChessSquare >> contents: aPiece
 				        color isBlack
 					        ifFalse: [ 'z' ]
 					        ifTrue: [ 'x' ] ]
-		        ifNotNil: [ <span style="color:#ff5555"> contents renderPieceOn: self </span> ].
+		        ifNotNil: [ contents renderPieceOn: self ].
 	piece text: (text asRopedText
 			 fontSize: 48;
 			 foreground: self foreground;
